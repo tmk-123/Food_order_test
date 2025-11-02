@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update sản phẩm</title>
+</head>
+<body>
+    <h1>Cập nhập sản phẩm</h1>
+    <!-- Nó sẽ tạo ra URL hoàn chỉnh là: http://localhost:8080/products/update -->
+    <form th:action="@{/products/update}" th:object="${product}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        Tên:
+        <input type="text" th:field="*{name}">
+
+        Giá:
+        <input type="text" th:field="*{price}">
+        
+        Mô tả:
+        <input type="text" th:field="*{description}">
+        <button type="submit">Cập nhập</button>
+    </form>
+
+    <a th:href="@{/products}">Quay lại</a>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách sản phẩm</title>
+</head>
+<body>
+
+    <!-- Mỗi cái đến từ Model trong Controller
+    Trong ProductController.java, bạn có hai thao tác với Model:
+    @GetMapping
+    public String getAllProducts(Model model) {
+        List<Product> products = service.getAll();   // ➊ danh sách sản phẩm
+        model.addAttribute("products", products);    // thêm vào Model
+        model.addAttribute("product", new Product()); // ➋ 1 object rỗng cho form
+        return "product";
+    } -->
+
+    <h1>Danh sách sản phẩm</h1>
+    <!--th:action: Xác định URL mà dữ liệu sẽ được gửi tới (tới phương thức @PostMapping("/products") -->
+    
+    <form th:action="@{/products}" th:object="${product}" method="post"> <!--Sử dụng phương thức POST để gửi dữ liệu lên server.-->
+        <input type="text" th:field="*{name}" placeholder="Tên sản phẩm" required /> <!--required: bắt buộc phải nhập-->
+        <input type="number" th:field="*{price}" placeholder="Giá sản phẩm" required /> 
+        <input type="text" th:field="*{description}" placeholder="Mô tả sản phẩm" required />
+        <button type="submit">Thêm sản phẩm</button>
+    </form>
+
+    <hr/>
+    <table border = "1">
+        <tr>
+            <th>ID</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá sản phẩm</th>
+            <th>Mô tả</th>
+        </tr>
+        <tr th:each="p : ${products}">
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+            <td th:text="${p.description}"></td>
+        
+            <!-- THÊM NÚT SỬA Ở ĐÂY -->
+        <td>
+            <a th:href="@{/products/edit/{id}(id=${p.id})}">Sửa</a>
+        </td>
+        </tr>
+    </table>
+</body>
+</html>
