@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update danh mục</title>
+</head>
+<body>
+    <form th:action="@{/categories/update}" th:object="${category}" method="post">
+        <input type="hidden" th:field="*{id}">
+        Tên danh mục:<input type="text" th:field="*{name}">
+        Mô tả:<input type="text" th:field="*{description}">
+        <button type="submit">Cập nhập</button>
+    </form>
+    <a th:href="@{/categories}">Quay lại</a>
+</body>
+</html>

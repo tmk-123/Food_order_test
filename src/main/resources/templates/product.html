@@ -22,7 +22,17 @@
     <form th:action="@{/products}" th:object="${product}" method="post"> <!--Sử dụng phương thức POST để gửi dữ liệu lên server.-->
         <input type="text" th:field="*{name}" placeholder="Tên sản phẩm" required /> <!--required: bắt buộc phải nhập-->
         <input type="number" th:field="*{price}" placeholder="Giá sản phẩm" required /> 
-        <input type="text" th:field="*{description}" placeholder="Mô tả sản phẩm" required />
+        <input type="text" th:field="*{description}" placeholder="Mô tả sản phẩm" />
+
+        <!--Dropdown để chọn danh mục, gửi danh sách categories xuống-->
+        <!-- th:object="${product}": nói với Thymeleaf rằng form này dùng để nhập dữ liệu cho 1 sản phẩm (Product).
+            th:field="*{category}": nói rằng ô chọn này dùng để chọn danh mục của sản phẩm.
+            Tức là giá trị người chọn sẽ được gắn vào thuộc tính category của Product -->
+        <select th:field="*{category}">
+            <option value="">--Chọn danh mục--</option>
+            <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}">
+            </option>
+        </select>
         <button type="submit">Thêm sản phẩm</button>
     </form>
 
@@ -33,13 +43,15 @@
             <th>Tên sản phẩm</th>
             <th>Giá sản phẩm</th>
             <th>Mô tả</th>
+            <th>Category</th>
+            <th colspan="2">Hành động</th>
         </tr>
         <tr th:each="p : ${products}">
             <td th:text="${p.id}"></td>
             <td th:text="${p.name}"></td>
             <td th:text="${p.price}"></td>
             <td th:text="${p.description}"></td>
-        
+            <td th:text="${p.category != null ? p.category.name : 'Không có'}"></td>
             <!-- THÊM NÚT SỬA Ở ĐÂY -->
         <td>
             <a th:href="@{/products/edit/{id}(id=${p.id})}">Sửa</a>

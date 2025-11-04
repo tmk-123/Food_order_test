@@ -10,14 +10,24 @@
     <form th:action="@{/products/update}" th:object="${product}" method="post">
         <input type="hidden" th:field="*{id}">
 
-        Tên:
-        <input type="text" th:field="*{name}">
+        <label>Tên:</label>
+        <input type="text" th:field="*{name}" required>
 
-        Giá:
-        <input type="text" th:field="*{price}">
+        <label>Giá</label>
+        <input type="text" th:field="*{price}" required>
         
-        Mô tả:
+        <label>Mô tả</label>
         <input type="text" th:field="*{description}">
+
+        <!--dropdown danh mục-->
+        <label>Danh mục:</label>
+        <!--th:field có nhiệm vụ liên kết giá trị được chọn trong <select> với thuộc tính category của đối tượng Product khi form được gửi đi
+            Tức là giá trị người chọn sẽ được gắn vào thuộc tính category của Product -->
+        <select th:field="*{category}" required>
+            <option value="">--Chọn danh mục</option>
+            <option th:each="c : ${categories}" th:value = "${c.id}" th:text = "${c.name}" th:selected="${product.category != null and c.id == product.category.id}"></option>
+        </select>
+        <br>
         <button type="submit">Cập nhập</button>
     </form>
 

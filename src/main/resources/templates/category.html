@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+</head>
+<body>
+    <h1>Danh sách danh mục</h1>
+
+    <!--Form thêm mới, ấn vào thêm sẽ sang categories(refresh lại trang)-->
+    <form th:action="@{/categories}" th:object="${category}" method="post">
+        <input type="text" th:field="*{name}" placeholder="Tên danh mục" required>
+        <input type="text" th:field="*{description}" placeholder="Mô tả">
+        <button type="submit">Thêm danh mục</button>
+    </form>
+
+    <hr>
+    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Tên danh mục</th>
+            <th>Mô Tả</th>
+            <th colspan="2">Hành động</th>
+        </tr>
+        <tr th:each="c : ${categories}">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.name}"></td>
+            <td th:text="${c.description}"></td>
+            <td><a th:href="@{/categories/edit/{id}(id=${c.id})}">Sửa</a></td> 
+            <td><a  th:href="@{/categories/delete/{id}(id=${c.id})}" onclick="return confirm('Bạn có chắc chắn xóa?')">Xóa</a></td>
+        </tr>
+    </table>
+</body>
+</html>
