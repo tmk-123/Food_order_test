@@ -40,4 +40,9 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductById(Long id) {
         return repo.findById(id).orElse(null);
     }
+
+    @Override
+    public void deleteProductById(Long id) {
+        repo.deleteById(id);
+    }
 }

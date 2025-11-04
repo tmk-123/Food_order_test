@@ -43,6 +43,7 @@
             <!-- THÊM NÚT SỬA Ở ĐÂY -->
         <td>
             <a th:href="@{/products/edit/{id}(id=${p.id})}">Sửa</a>
+            <a th:href="@{/products/delete/{id}(id=${p.id})}" onclick="return confirm('Bạn có chắc xóa sản phẩm này không?')">Xóa</a>
         </td>
         </tr>
     </table>
