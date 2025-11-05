@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang chủ</title>
+</head>
+<body>
+  <h2>Xin chào, <span th:text="${user.name}"></span>!</h2>
+  <p>Email: <span th:text="${user.email}"></span></p>
+
+  <a th:href="@{/logout}">Đăng xuất</a>
+</body>
+</html>

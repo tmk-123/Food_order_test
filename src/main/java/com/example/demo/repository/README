@@ -1,0 +1,86 @@
+Tại sao lại dùng interface, sao không dùng class viết CRUD luôn cho nhanh?”
+
+🧩 1️⃣ Nếu bạn không dùng Spring JPA
+
+Bạn sẽ phải tự viết 1 class kiểu như vầy:
+
+public class ProductRepository {
+
+    @Autowired
+    private EntityManager em;
+
+    public List<Product> findAll() {
+        return em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
+    }
+
+    public Product save(Product product) {
+        em.persist(product);
+        return product;
+    }
+
+    public void deleteById(Long id) {
+        Product p = em.find(Product.class, id);
+        em.remove(p);
+    }
+}
+
+
+➡️ Cực kỳ lặp lại, dự án nào cũng phải viết y chang!
+Cả ngàn file giống nhau. Mệt 😩
+
+⚙️ 2️⃣ Spring Data JPA giúp bạn đỡ phải viết
+
+Spring nói:
+
+“Mấy hàm CRUD đó tôi viết sẵn hết rồi.
+Bạn chỉ cần nói cho tôi biết bạn làm việc với entity nào, khóa kiểu gì.”
+
+👉 Nên bạn chỉ cần:
+
+public interface ProductRepository extends JpaRepository<Product, Long> { }
+
+
+Thế là xong ✅
+
+Spring sẽ tự tạo ra một class ẩn có các hàm như:
+
+findAll(), save(), deleteById(), findById(), count(), existsById()...
+
+
+Bạn vẫn gọi y như bình thường,
+nhưng không phải tự gõ từng hàm.
+
+🧠 3️⃣ Vì sao dùng interface được?
+
+Interface chỉ định “tôi cần những hàm này”,
+còn Spring tự “tạo” class thật đứng sau khi app chạy.
+
+Giống như bạn đặt hàng,
+Spring tự chế tạo và giao hàng cho bạn.
+
+✅ 4️⃣ Lợi ích
+Nếu bạn dùng class	Nếu bạn dùng interface (Spring JPA)
+Phải viết code CRUD thủ công	Không cần viết, Spring tạo sẵn
+Dễ bị lỗi SQL, lỗi logic	An toàn, kiểm tra compile-time
+Code dài, khó bảo trì	Gọn gàng, dễ đọc
+Khó mở rộng	Thêm hàm riêng dễ dàng (findByName, findByCategoryId)
+💬 5️⃣ Tóm lại
+
+Dùng interface để Spring tự tạo class giúp bạn.
+
+Nếu bạn dùng class, bạn phải tự viết mọi hàm CRUD.
+
+Interface ở đây chỉ là bản thiết kế,
+còn Spring là người xây nhà thật dựa trên bản thiết kế đó.
+
+🧩 Ví dụ dễ hiểu ngoài đời:
+
+Bạn đưa cho thợ xây bản thiết kế (interface):
+
+“Tôi muốn nhà có phòng khách, phòng ngủ, phòng tắm.”
+
+Thợ (Spring JPA) nói:
+
+“Ok, để tôi xây cho, khỏi cần bạn cầm búa luôn!”
+
+→ Kết quả: bạn có “ngôi nhà” (repository thật) mà không phải làm gì cả 🏠
