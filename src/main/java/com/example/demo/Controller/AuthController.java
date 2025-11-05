@@ -49,6 +49,7 @@ public class AuthController {
                                Model model) {
         User user = service.login(email, password);
         if (user != null) {
+            // định nghĩa thuộc tính loggerUser để biết đã đăng nhập chưa
             session.setAttribute("loggedUser", user);
             return "redirect:/home";
         }

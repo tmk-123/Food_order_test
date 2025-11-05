@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import com.example.demo.model.Product;
-import com.example.demo.repository.CategoryRepository;
-import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.ui.Model;
 import com.example.demo.service.CategoryService;
